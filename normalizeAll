@@ -1,0 +1,84 @@
+#!/bin/bash
+#
+# This shell script collects the paths to all of the UFO fonts found under the directory
+# tree provided, and then runs the UFO Normalizer on each of the UFOs.
+#
+# To run it, type the command `normalizeAll` followed by the path to the directory tree
+# that contains the UFO fonts that you want to normalize.
+#	normalizeAll <path_to_directory_tree>
+#
+# This script depends on the UFO Normalizer to be installed. To get it, go to
+#	https://github.com/unified-font-object/ufo-example-implementations
+# Then place the file named `ufonormalizer` in a folder that is listed in the shell's
+# $PATH variable. To get the list of folders, open the Terminal and run this command:
+#	IFS=:; printf "%s\n" $PATH
+# To confirm that the UFO Normalizer is correctly installed, open a **new** Terminal
+# window and run the folowing command:
+#	ufonormalizer -h
+# The tool is correctly installed if you get the usage information instead of a message
+# that ends with the sentence "No such file or directory".
+#
+# It's recommended that you keep the UFO Normalizer always up to date. The best way to
+# achieve that is to get the files via git, instead of downloading the repository's ZIP
+# download through the browser.
+# To get the files via git, open a Terminal window and run the following command:
+#	git clone https://github.com/unified-font-object/ufo-example-implementations
+# Then every time you want to get the latest version, run this command:
+#	git pull
+#
+# In case you (wisely ;^) chose to get the the UFO Normalizer via git, you'll need to do
+# at least **one** of these two things:
+#
+# A. Create a symlink file that points to the ufonormalizer tool, using this command:
+#		ln -s <full_path_to_ufonormalizer_tool> ufonormalizer
+#    A file named "ufonormalizer" will be created. Now place this file inside a folder
+#    that is listed in the shell's $PATH variable.
+#
+# B. Add the full path to the folder that contains the ufonormalizer tool to the $PATH
+#    variable.
+#
+# ----------------------------------------------------------------------------------------
+
+ufonormalizerTool='ufonormalizer'
+
+
+# Check if the UFO Normalizer tool is installed
+if ! command -v "$ufonormalizerTool" >/dev/null; then
+	echo "ERROR: ufonormalizer tool is not installed."
+	echo "       Get it at https://github.com/unified-font-object/ufo-example-implementations"
+	exit 1
+fi
+
+
+# Test if input argument is a directory
+if [[ -d "$1" ]]; then
+	dirPath=$1
+	cd "$dirPath"
+	dirPath=`pwd`
+	echo "Top directory: $dirPath"
+elif [[ "$1" == "" ]]; then
+	echo "No directory provided."
+	exit 1
+else
+	echo "$1 is not a valid directory path."
+	exit 1
+fi
+
+
+# Get the paths to all of the UFOs in the directory tree
+ufoList=`find . -type d | egrep -i '\.ufo$'`
+
+if [[ -n "$ufoList" ]]; then
+	ufoArray=($ufoList)
+	echo "Found ${#ufoArray[@]} UFOs"
+else
+	echo "No UFOs where found."
+fi
+
+# Normalize each UFO
+for path in $ufoList
+do
+	ufoPath="$dirPath/${path:2}" # trim the initial two characters of $path (which will be './')
+# 	echo $ufoPath
+	$ufonormalizerTool $ufoPath
+done
