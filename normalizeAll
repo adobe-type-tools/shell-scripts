@@ -80,5 +80,5 @@ for path in $ufoList
 do
 	ufoPath="$dirPath/${path:2}" # trim the initial two characters of $path (which will be './')
 # 	echo $ufoPath
-	$ufonormalizerTool $ufoPath
+	$ufonormalizerTool "$ufoPath"
 done
