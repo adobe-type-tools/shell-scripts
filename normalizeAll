@@ -7,35 +7,39 @@
 # that contains the UFO fonts that you want to normalize.
 #	normalizeAll <path_to_directory_tree>
 #
-# This script depends on the UFO Normalizer to be installed. To get it, go to
-#	https://github.com/unified-font-object/ufo-example-implementations
-# Then place the file named `ufonormalizer` in a folder that is listed in the shell's
-# $PATH variable. To get the list of folders, open the Terminal and run this command:
-#	IFS=:; printf "%s\n" $PATH
+# This script depends on the UFO Normalizer to be installed. To get it, open a Terminal
+# window and run the following command:
+#	git clone https://github.com/unified-font-object/ufoNormalizer
+# Then install it by running the following two commands:
+#	cd ufoNormalizer
+#	sudo python setup.py develop
+#
 # To confirm that the UFO Normalizer is correctly installed, open a **new** Terminal
 # window and run the folowing command:
 #	ufonormalizer -h
 # The tool is correctly installed if you get the usage information instead of a message
 # that ends with the sentence "No such file or directory".
 #
-# It's recommended that you keep the UFO Normalizer always up to date. The best way to
-# achieve that is to get the files via git, instead of downloading the repository's ZIP
-# download through the browser.
-# To get the files via git, open a Terminal window and run the following command:
-#	git clone https://github.com/unified-font-object/ufo-example-implementations
-# Then every time you want to get the latest version, run this command:
+# It's recommended that you keep the UFO Normalizer always up to date. To do so, open a
+# Terminal window and run the following two commands:
+#	cd ufoNormalizer
 #	git pull
 #
-# In case you (wisely ;^) chose to get the the UFO Normalizer via git, you'll need to do
-# at least **one** of these two things:
+# ----------------------------------------------------------------------------------------
 #
-# A. Create a symlink file that points to the ufonormalizer tool, using this command:
-#		ln -s <full_path_to_ufonormalizer_tool> ufonormalizer
-#    A file named "ufonormalizer" will be created. Now place this file inside a folder
-#    that is listed in the shell's $PATH variable.
+# If you want to run `normalizeAll` from anywhere in your hard drive, you'll need to do
+# **one** of these two things:
 #
-# B. Add the full path to the folder that contains the ufonormalizer tool to the $PATH
-#    variable.
+# A. create an alias in your shell's configuration file (e.g. .bash_profile), by adding
+#    by adding this line to it:
+#		alias normalizeAll='<full_path_to_normalizeAll_file>'
+#
+# B. create a symlink using this command:
+#		ln -s <full_path_to_normalizeAll_file> normalizeAll
+#    A file named "normalizeAll" will be created. Now place this file inside a folder
+#    that is listed in the shell's $PATH variable. To get the list of folders, open a
+#    Terminal window and run this command:
+#		IFS=:; printf "%s\n" $PATH
 #
 # ----------------------------------------------------------------------------------------
 
@@ -45,7 +49,7 @@ ufonormalizerTool='ufonormalizer'
 # Check if the UFO Normalizer tool is installed
 if ! command -v "$ufonormalizerTool" >/dev/null; then
 	echo "ERROR: ufonormalizer tool is not installed."
-	echo "       Get it at https://github.com/unified-font-object/ufo-example-implementations"
+	echo "       Get it at https://github.com/unified-font-object/ufoNormalizer"
 	exit 1
 fi
 
