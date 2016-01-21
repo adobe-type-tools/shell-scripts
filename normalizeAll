@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # This shell script collects the paths to all of the UFO fonts found under the directory
 # tree provided, and then runs the UFO Normalizer on each of the UFOs.
