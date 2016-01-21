@@ -68,9 +68,12 @@ else
 	exit 1
 fi
 
+# Set newline as the Internal Field Separator.
+# This way the paths are not split at space characters.
+IFS=$'\n'
 
 # Get the paths to all of the UFOs in the directory tree
-ufoList=`find . -type d | egrep -i '\.ufo$'`
+ufoList=`find . -type d -name '*.ufo' | sed 's:^\./::'` # sed removes the trailing './'
 
 if [[ -n "$ufoList" ]]; then
 	ufoArray=($ufoList)
@@ -82,7 +85,7 @@ fi
 # Normalize each UFO
 for path in $ufoList
 do
-	ufoPath="$dirPath/${path:2}" # trim the initial two characters of $path (which will be './')
+	ufoPath="$dirPath/$path"
 # 	echo $ufoPath
 	$ufonormalizerTool "$ufoPath"
 done
