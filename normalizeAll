@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 #
 # This shell script collects the paths to all of the UFO fonts found under the directory
 # tree provided, and then runs the UFO Normalizer on each of the UFOs.
@@ -87,5 +87,5 @@ for path in $ufoList
 do
 	ufoPath="$dirPath/$path"
 # 	echo $ufoPath
-	$ufonormalizerTool "$ufoPath"
+	$ufonormalizerTool "-m" "$ufoPath"
 done
