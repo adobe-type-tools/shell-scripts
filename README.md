@@ -8,6 +8,8 @@ Shell scripts are basically a bunch of commands, which could theoretically also 
 
 There are various ways of using shell scripts. For this example, let’s assume our script is called `scriptName.sh`.
 
+##### Executing a Shell Script Directly
+
 If the shell script file is not set to be executable, navigate to the directory of the script, and run
 
 	./scriptName.sh
@@ -20,9 +22,18 @@ A script can be changed to be executable by using
 
 	chmod +x scriptName.sh
 
-----
+##### Moving the Shell Script to a Directory
 
-Another way of using a shell script is assigning an `alias`. To find out how an alias can be assigned, you need to know which shell you’re running:
+An executable shell script can also be moved to a directory which is in your `PATH` – which means “this is where ready-to-run programs live”. To see which directories are in your `PATH`, enter
+
+	echo $PATH
+
+Choose an appropriate directory, and move the shell script there.
+
+
+##### Using an Alias
+
+A third way of using a shell script is assigning an `alias`. To find out where to assign an alias, you need to know which shell you’re running:
 
 
 ### Your Shell
